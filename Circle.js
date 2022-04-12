@@ -1,11 +1,12 @@
 class Circle {
-    #id = new Date().getTime() + '_' + new Date().getMilliseconds();
+    #id = new Date().getTime() + '_' + new Date().getMilliseconds()+'_'+Math.floor(Math.random()*100);
     #element;
     #playground;
     #timer;
     constructor(radius, color, playground) {
         this.#playground = document.getElementById(playground);
         this.#element = document.createElement('div');
+        this.#element.id = 'circle_' + this.#id;
         this.#element.options = {
             direction: {
                 x: 1,
@@ -21,12 +22,12 @@ class Circle {
                 x:Math.random()+1,
                 y:Math.random()+1
             }
-        }
-        this.#element.id = 'circle_' + this.#id;
+        }        
         this.#prepareStyle();
         this.#playground.appendChild(this.#element)
-        this.#element.options.position.x=(parseInt(this.#playground.offsetWidth)+parseInt(this.#playground.offsetLeft)-(this.#element.options.radius+2))*Math.random();
-        this.#element.options.position.y=(parseInt(this.#playground.offsetHeight)+parseInt(this.#playground.offsetTop)-(this.#element.options.radius+2))*Math.random();
+        this.#element.options.position.x=(parseInt(this.#playground.offsetWidth)-(this.#element.options.radius+2))*Math.random();
+        this.#element.options.position.y=(parseInt(this.#playground.offsetHeight)-(this.#element.options.radius+2))*Math.random();
+        console.log(this.#playground.offsetLeft,this.#playground.offsetTop,this.#playground.offsetWidth,this.#playground.offsetHeight)
     }
     getX() {
         return parseInt(this.#element.style.top);
@@ -48,24 +49,24 @@ class Circle {
         let newX=obj.#element.options.position.x+(obj.#element.options.direction.x*obj.#element.options.alfa.x)
         let newY=obj.#element.options.position.y+(obj.#element.options.direction.y*obj.#element.options.alfa.y)
         
-        if(newX>=(parseInt(obj.#playground.offsetWidth)+parseInt(obj.#playground.offsetLeft)-(obj.#element.options.radius+2))){
-            newX=(parseInt(obj.#playground.offsetWidth)+parseInt(obj.#playground.offsetLeft)-(obj.#element.options.radius+2))
+        if(newX>=(parseInt(obj.#playground.offsetWidth)-(obj.#element.options.radius+2))){
+            newX=(parseInt(obj.#playground.offsetWidth)-(obj.#element.options.radius+2))
             obj.#element.options.direction.x*=-1;
             obj.#element.options.alfa.x=Math.random()+1;
         }
-        if(newX<=parseInt(obj.#playground.offsetLeft)){
-            newX=parseInt(obj.#playground.offsetLeft)
+        if(newX<=0){
+            newX=0
             obj.#element.options.direction.x*=-1;
             obj.#element.options.alfa.x=Math.random()+1;
         }
 
-        if(newY>=(parseInt(obj.#playground.offsetHeight)+parseInt(obj.#playground.offsetTop)-(obj.#element.options.radius+2))){
-            newY=(parseInt(obj.#playground.offsetHeight)+parseInt(obj.#playground.offsetTop)-(obj.#element.options.radius+2))
+        if(newY>=(parseInt(obj.#playground.offsetHeight)-(obj.#element.options.radius+2))){
+            newY=(parseInt(obj.#playground.offsetHeight)-(obj.#element.options.radius+2))
             obj.#element.options.direction.y*=-1;
             obj.#element.options.alfa.y=Math.random()+1;
         }
-        if(newY<=parseInt(obj.#playground.offsetTop)){
-            newY=parseInt(obj.#playground.offsetTop)
+        if(newY<=0){
+            newY=0
             obj.#element.options.direction.y*=-1;
             obj.#element.options.alfa.y=Math.random()+1;
         }
@@ -89,5 +90,13 @@ class Circle {
 
 }
 
-let circle1 = new Circle(100, 'blue','playground');
+let circle1 = new Circle(50, 'green','playground');
 circle1.startMove();
+let circle2 = new Circle(50, 'blue','playground');
+circle2.startMove();
+let circle3 = new Circle(30, 'red','playground');
+circle3.startMove();
+let circle4 = new Circle(20, 'yellow','playground');
+circle4.startMove();
+let circle5 = new Circle(10, 'white','playground');
+circle5.startMove();
