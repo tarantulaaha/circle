@@ -77,6 +77,7 @@ class Circle {
         this.#timer = setInterval(this.#moving,10,this)
     }
     #prepareStyle() {
+        
         this.#element.style.position = 'absolute';
         this.#element.style.top = this.#element.options.position.x + 'px';
         this.#element.style.left = this.#element.options.position.y + 'px';
