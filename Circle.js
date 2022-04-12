@@ -100,3 +100,7 @@ let circle4 = new Circle(20, 'yellow','playground');
 circle4.startMove();
 let circle5 = new Circle(10, 'white','playground');
 circle5.startMove();
+let circle6 = new Circle(10, 'pink','playground');
+circle6.startMove();
+let circle7 = new Circle(30, 'orange','playground');
+circle7.startMove();
