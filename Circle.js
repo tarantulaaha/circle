@@ -34,6 +34,12 @@ class Circle {
     }
     getY() {
         return parseInt(this.#element.style.left);
+    }    
+    randomColor(){
+        let r = Math.floor(Math.random() * 255)
+        let g = Math.floor(Math.random() * 255)
+        let b = Math.floor(Math.random() * 255)
+        return '#'+r.toString(16).padStart(2,'0')+g.toString(16).padStart(2,'0')+b.toString(16).padStart(2,'0')
     }
     setY(y) {
         this.#element.style.top = y + 'px';
@@ -45,6 +51,7 @@ class Circle {
         this.#element.options.position.x = x;
         return this;
     }
+
     #moving(obj){
         let newX=obj.#element.options.position.x+(obj.#element.options.direction.x*obj.#element.options.alfa.x)
         let newY=obj.#element.options.position.y+(obj.#element.options.direction.y*obj.#element.options.alfa.y)
@@ -53,22 +60,26 @@ class Circle {
             newX=(parseInt(obj.#playground.offsetWidth)-(obj.#element.options.radius+2))
             obj.#element.options.direction.x*=-1;
             obj.#element.options.alfa.x=Math.random()+1;
+            obj.#element.style.backgroundColor=obj.randomColor();
         }
         if(newX<=0){
             newX=0
             obj.#element.options.direction.x*=-1;
             obj.#element.options.alfa.x=Math.random()+1;
+            obj.#element.style.backgroundColor=obj.randomColor();
         }
 
         if(newY>=(parseInt(obj.#playground.offsetHeight)-(obj.#element.options.radius+2))){
             newY=(parseInt(obj.#playground.offsetHeight)-(obj.#element.options.radius+2))
             obj.#element.options.direction.y*=-1;
             obj.#element.options.alfa.y=Math.random()+1;
+            obj.#element.style.backgroundColor=obj.randomColor();
         }
         if(newY<=0){
             newY=0
             obj.#element.options.direction.y*=-1;
             obj.#element.options.alfa.y=Math.random()+1;
+            obj.#element.style.backgroundColor=obj.randomColor();
         }
         obj.setX(newX)
         obj.setY(newY)
@@ -76,8 +87,7 @@ class Circle {
     startMove() {
         this.#timer = setInterval(this.#moving,10,this)
     }
-    #prepareStyle() {
-        
+    #prepareStyle() {        
         this.#element.style.position = 'absolute';
         this.#element.style.top = this.#element.options.position.x + 'px';
         this.#element.style.left = this.#element.options.position.y + 'px';
